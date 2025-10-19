@@ -96,16 +96,29 @@ Sekali lagi, Happy Brojoll Day Lepungggg 🎉🎂🎈
   
 <footer>— dari Cigoo 💌</footer>  
   
-<audio id="music" src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_7b53a4972f.mp3?filename=happy-birthday-piano-version-7742.mp3"></audio>  
+<audio id="music" preload="auto">  
+  <source src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_7b53a4972f.mp3?filename=happy-birthday-piano-version-7742.mp3" type="audio/mpeg">  
+</audio>  
   
 <script>  
   const playButton = document.getElementById('playMusic');  
   const music = document.getElementById('music');  
+  let isPlaying = false;  
   
-  playButton.addEventListener('click', () => {  
-    music.play();  
-    playButton.innerText = "🎶 Musik Sedang Diputar...";  
-    playButton.disabled = true;  
+  playButton.addEventListener('click', async () => {  
+    try {  
+      if (!isPlaying) {  
+        await music.play();  
+        playButton.innerText = "⏸️ Hentikan Musik";  
+        isPlaying = true;  
+      } else {  
+        music.pause();  
+        playButton.innerText = "🎵 Putar Musik";  
+        isPlaying = false;  
+      }  
+    } catch (err) {  
+      alert("Browser kamu belum mengizinkan pemutaran musik. Tekan tombol lagi ya ❤️");  
+    }  
   });  
   
   // Balon animasi  
